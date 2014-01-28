@@ -1,0 +1,120 @@
+FORMAT: 1A
+HOST: http://api.socialjukebox.scjug.org
+
+# SCJUG SocialJukebox
+A group-built application for the Space Coast Java User's Group.  A distributed jukebox experience for owners and patrons which allow social interaction.
+
+## Jukebox [/jukeboxes/{id}]
+
++ Parameters
+    
+    + id (string) ... ID of the Jukebox
+
++ Model (application/hal+json)
+
+    + Headers
+
+            Link: <http:/api.socialjukebox.scjug.org/jukeboxes/1>;rel="self", <http:/api.socialjukebox.scjug.org/jukeboxes/1/tracks>;rel="tracks"
+
+    + Body
+
+            {
+                "_links": {
+                    "self": { "href": "/jukeboxes/1" },
+                    "tracks": { "href": "/jukeboxes/1/tracks" }
+                },
+                "name": "TrepHub",
+                "location": {
+                    "address": "907 E Strawbridge Ave, Melbourne, FL 32907",
+                    "lat": "28.079250",
+                    "long": "-80.605619"
+                },
+                "music_provider": {
+                    "name": "Spotify"
+                }
+            }
+
+### List a single jukebox by ID [GET]
++ Response 200 (applicaiton/hal+json)
+
+    [Jukebox][]
+            
+## Jukeboxes Collection [/jukeboxes{?distance}{&lat}(&long}]
+
++ Model (application/hal+json)
+
+    + Headers
+
+            Link: <http:/api.socialjukebox.scjug.org/jukeboxes>;rel="self"
+
+    + Body
+
+            {
+                "_links": {
+                    "self": { "href": "/jukeboxes" },
+                    "findNearBy": { "href" : "/jukeboxes{?distance}{&lat}{&long}", "templated": true }
+                },
+                "_embedded": {
+                    "jukeboxes": [
+                        {
+                            "_links": {
+                                "self": { "href": "/jukeboxes/1" },
+                                "tracks": { "href": "/jukeboxes/1/tracks" }
+                            },
+                            "name": "TrepHub",
+                            "location": {
+                                "address": "907 E Strawbridge Ave, Melbourne, FL 32907",
+                                "lat": "28.079250",
+                                "long": "-80.605619"
+                            },
+                            "music_provider": {
+                                "name": "Spotify"
+                            }
+                        }, 
+                        {
+                            "_links": {
+                                "self": { "href": "/jukeboxes/2" },
+                                "tracks": { "href": "/jukeboxes/2/tracks" }
+                            },
+                            "name": "Coasters Pub",
+                            "location": {
+                                "address": "971 E Eau Gallie Blvd, Melbourne, FL 32937",
+                                "lat": "28.138622",
+                                "long": "-80.582488"
+                            },
+                            "music_provider": {
+                                "name": "Rdio.com"
+                            }
+                        }
+                    ]
+                }
+            }
+
+### List all the Jukeboxes [GET]
++ Parameters
+
+    + distance (int, optional) ... Distance relative to provided coordinates
+    + lat (int, optional) ... Latitude
+    + long (int, optional) ... Longitude
+    
++ Response 200 (applicaiton/hal+json)
+
+    [Jukeboxes Collection][]
+
+### Create a Jukebox [POST]
+
++ Request (application/json)
+
+            {
+                "name": "TrepHub",
+                "location": {
+                    "address": "907 E Strawbridge Ave, Melbourne, FL 32907"
+                },
+                "music_provider": {
+                    "name": "Spotify"
+                }
+            }
+
++ Response 201 (applicaiton/hal+json)
+    
+    [Jukebox][]
