@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface MusicProvider {
 
-    public MusicProviderAccount getAccount();
+    public String getName();
 
     /**
      * Uses free form text to query a MusicProvider for a list of applicable tracks

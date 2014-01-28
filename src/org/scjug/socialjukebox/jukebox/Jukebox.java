@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class Jukebox {
 
+    private String name;
     private SpaceOwner spaceOwner;
     private Location location;
     private MusicProvider musicProvider;
@@ -19,11 +20,20 @@ public class Jukebox {
 
     private int currentTrackIndex = 0;
 
-    public Jukebox(SpaceOwner spaceOwner, Location location, MusicProvider musicProvider) {
+    public Jukebox(String name, SpaceOwner spaceOwner, Location location, MusicProvider musicProvider) {
+        this.name = name;
         this.spaceOwner = spaceOwner;
         this.location = location;
         this.musicProvider = musicProvider;
         this.trackRequests = new JukeboxTrackRequestList();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public SpaceOwner getSpaceOwner() {
